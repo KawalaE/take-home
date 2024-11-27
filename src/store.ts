@@ -1,8 +1,8 @@
 import { create } from "zustand";
 import { DeletedListItem, ListItem } from "./api/getListData";
-
 type State = {
   cards: ListItem[];
+  expandedIds: number[];
   deletedCards: DeletedListItem[];
   isDelatedRevaled: boolean;
 };
@@ -14,9 +14,10 @@ type Actions = {
   revealDelated: () => void;
 };
 
-export const useStore = create<State & Actions>((set) => ({
+export const useStore = create<State & Actions>()((set) => ({
   cards: [],
   deletedCards: [],
+  expandedIds: [],
   isDelatedRevaled: false,
 
   setCards: (cards) => set({ cards }),
@@ -28,8 +29,10 @@ export const useStore = create<State & Actions>((set) => ({
       if (!cardToDelete) {
         return state;
       }
+      const updatedCards = state.cards.filter((card) => card.id !== id);
+
       return {
-        cards: state.cards.filter((card) => card.id !== id),
+        cards: updatedCards,
         deletedCards: [
           ...state.deletedCards,
           {
@@ -41,25 +44,18 @@ export const useStore = create<State & Actions>((set) => ({
       };
     });
   },
+
   toggleExpand: (id) => {
-    set((state) => {
-      const updatedCards = state.cards.map((card) => {
-        if (card.id === id) {
-          return {
-            ...card,
-            isCollapsed: card.isCollapsed === true ? false : true,
-          };
-        }
-        return card;
-      });
-      return { cards: updatedCards };
-    });
+    set((state) => ({
+      expandedIds: state.expandedIds.includes(id)
+        ? state.expandedIds.filter((expandedId) => expandedId !== id)
+        : [...state.expandedIds, id],
+    }));
   },
+
   revealDelated: () => {
-    set((state) => {
-      return {
-        isDelatedRevaled: state.isDelatedRevaled === true ? false : true,
-      };
-    });
+    set((state) => ({
+      isDelatedRevaled: !state.isDelatedRevaled,
+    }));
   },
 }));
