@@ -33,7 +33,7 @@ export const Card: FC<CardProps> = ({ id, title, description }) => {
       </div>
       {description && expandedIds.includes(id) && (
         <p
-          className={`text-sm text-gray-600 pt-3 w-5/5 ${
+          className={`text-sm text-gray-600 dark:text-gray-400 pt-3 w-5/5 ${
             expandedIds.includes(id)
               ? "animate-fadeIn "
               : "animate-fadeOut delay-700"

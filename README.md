@@ -1,3 +1,11 @@
+## Task Solution
+
+This is my rendition of the Task, rules are described at the end.
+
+![Design preview for the coding challenge](./images/Screenshot_2024-11-27_22-40-39.png)
+
+![Design preview for the coding challenge](./images/Screenshot_2024-11-27_22-41-54.png)
+
 ## Rules
 
 - add/remove/modify existing code to achieve the end result (some code needs a refactor)
