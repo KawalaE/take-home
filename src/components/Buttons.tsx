@@ -15,7 +15,6 @@ export const ExpandButton: FC<ButtonProps> = ({
 
   const handleExpansion = () => {
     toggleExpand(cardId);
-    console.log(cardId);
   };
   return (
     <button

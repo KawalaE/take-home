@@ -30,9 +30,10 @@ export const Entrypoint = () => {
     <div className="flex gap-x-16">
       <div className="w-full max-w-xl">
         <h1 className="mb-1 font-medium text-lg">
-          My Awesome List ({cards?.length})
+          My Awesome List{" "}
+          <span className="text-green-500 ml-3 ">{cards?.length}</span>
         </h1>
-        <div className="flex flex-col gap-y-3">
+        <div className="flex flex-col gap-y-3 pt-5">
           {cards.map((card) => (
             <Card
               key={card.id}
@@ -45,18 +46,19 @@ export const Entrypoint = () => {
         </div>
       </div>
       <div className="w-full max-w-xl">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between ">
           <h1 className="mb-1 font-medium text-lg">
-            Deleted Cards ({deletedCards.length})
+            Deleted Cards{" "}
+            <span className="text-green-500 ml-3 ">{deletedCards.length}</span>
           </h1>
           <button
             onClick={revealDelated}
-            className="text-white text-sm transition-colors hover:bg-gray-800 disabled:bg-black/75 bg-black rounded px-3 py-1"
+            className="text-black text-sm transition-colors hover:bg-green-300  disabled:bg-black/75 bg-green-400 rounded px-3 py-1"
           >
             {isDelatedRevaled === true ? "Hide" : "Reveal"}
           </button>
         </div>
-        <div className="flex flex-col gap-y-3">
+        <div className="flex flex-col gap-y-3 pt-5">
           {isDelatedRevaled &&
             deletedCards.map((card) => (
               <Card key={card.id} id={card.id} title={card.title} />

@@ -17,7 +17,7 @@ export const Card: FC<CardProps> = ({
   isCollapsed,
 }) => {
   return (
-    <div className="border border-black px-2 py-1.5">
+    <div className="border border-black p-5  dark:bg-white/10 rounded-xl maxw-80 animate-fadeIn">
       <div className="flex justify-between mb-0.5">
         <h1 className="font-medium">{title}</h1>
 
@@ -31,7 +31,17 @@ export const Card: FC<CardProps> = ({
           {description && <DeleteButton cardId={id} />}
         </div>
       </div>
-      {description && isCollapsed && <p className="text-sm">{description}</p>}
+      {description && isCollapsed && (
+        <p
+          className={`text-sm text-gray-400 pt-3 w-5/5 ${
+            isCollapsed === true
+              ? "animate-fadeIn "
+              : "animate-fadeOut delay-700"
+          } `}
+        >
+          {description}
+        </p>
+      )}
     </div>
   );
 };
