@@ -7,7 +7,8 @@ import { Spinner } from "./Spinner";
 export const Entrypoint = () => {
   //const [visibleCards, setVisibleCards] = useState<ListItem[]>([]);
   const listQuery = useGetListData();
-  const { cards, setCards, deletedCards } = useStore();
+  const { cards, setCards, deletedCards, revealDelated, isDelatedRevaled } =
+    useStore();
   console.log(cards);
   // TOOD
   // const deletedCards: DeletedListItem[] = [];
@@ -49,16 +50,17 @@ export const Entrypoint = () => {
             Deleted Cards ({deletedCards.length})
           </h1>
           <button
-            disabled
+            onClick={revealDelated}
             className="text-white text-sm transition-colors hover:bg-gray-800 disabled:bg-black/75 bg-black rounded px-3 py-1"
           >
-            Reveal
+            {isDelatedRevaled === true ? "Hide" : "Reveal"}
           </button>
         </div>
         <div className="flex flex-col gap-y-3">
-          {deletedCards.map((card) => (
-            <Card key={card.id} id={card.id} title={card.title} />
-          ))}
+          {isDelatedRevaled &&
+            deletedCards.map((card) => (
+              <Card key={card.id} id={card.id} title={card.title} />
+            ))}
         </div>
       </div>
     </div>

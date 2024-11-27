@@ -9,7 +9,6 @@ type State = {
 
 type Actions = {
   setCards: (cards: ListItem[]) => void;
-  expandCard: (id: number) => void;
   deleteCard: (id: number) => void;
   toggleExpand: (id: number) => void;
   revealDelated: () => void;
@@ -54,6 +53,13 @@ export const useStore = create<State & Actions>((set) => ({
         return card;
       });
       return { cards: updatedCards };
+    });
+  },
+  revealDelated: () => {
+    set((state) => {
+      return {
+        isDelatedRevaled: state.isDelatedRevaled === true ? false : true,
+      };
     });
   },
 }));
