@@ -1,19 +1,48 @@
 import { FC } from "react";
+import { useStore } from "../store";
 import { XMarkIcon } from "./icons";
 
-type ButtonProps = React.ComponentProps<"button">;
+type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+  cardId: number;
+};
 
-export const ExpandButton: FC<ButtonProps> = ({ children, ...props }) => {
+export const ExpandButton: FC<ButtonProps> = ({
+  cardId,
+  children,
+  ...props
+}) => {
+  const toggleExpand = useStore((state) => state.toggleExpand);
+
+  const handleExpansion = () => {
+    toggleExpand(cardId);
+    console.log(cardId);
+  };
   return (
-    <button className="hover:text-gray-700 transition-colors flex items-center justify-center" {...props}>
+    <button
+      onClick={handleExpansion}
+      className="hover:text-gray-700 transition-colors flex items-center justify-center"
+      {...props}
+    >
       {children}
     </button>
   );
 };
 
-export const DeleteButton: FC<Omit<ButtonProps, "children">> = (props) => {
+export const DeleteButton: FC<Omit<ButtonProps, "children">> = ({
+  cardId,
+  ...props
+}) => {
+  const deleteCard = useStore((state) => state.deleteCard);
+
+  const handleDeletion = () => {
+    deleteCard(cardId);
+  };
   return (
-    <button className="hover:text-gray-700 transition-colors flex items-center justify-center" {...props}>
+    <button
+      onClick={handleDeletion}
+      className="hover:text-gray-700 transition-colors flex items-center justify-center"
+      {...props}
+    >
       <XMarkIcon />
     </button>
   );
